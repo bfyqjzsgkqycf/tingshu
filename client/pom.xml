@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.lsj.tingshu</groupId>
+        <artifactId>tingshu</artifactId>
+        <version>1.0</version>
+    </parent>
+
+    <modules>
+        <module>client-album</module>
+        <module>client-user</module>
+        <module>client-account</module>
+        <module>client-order</module>
+        <module>client-search</module>
+    </modules>
+
+    <groupId>com.lsj.tingshu.client</groupId>
+    <artifactId>client</artifactId>
+    <version>1.0</version>
+
+    <packaging>pom</packaging>
+    <description>应用的所有远程调用层</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.lsj.tingshu.common.util.common</groupId>
+            <artifactId>common-util</artifactId>
+            <version>1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.lsj.tingshu.model</groupId>
+            <artifactId>model</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- 服务调用feign -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+</project>
