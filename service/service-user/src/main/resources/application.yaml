@@ -1,0 +1,43 @@
+server:
+  port: 8600
+
+spring:
+  datasource:
+    url: jdbc:mysql://192.168.200.140:3306/tingshu_user
+    username: xxx
+    password: xxx
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+
+  data:
+    redis:
+      host: 192.168.200.140
+      port: 6379
+      password: xxx
+      database: 0
+
+    mongodb:
+      host: 192.168.200.140
+      database: tingshu
+      port: 27017
+
+  rabbitmq:
+    host: 192.168.200.140
+    port: 5672
+    username: xxx
+    password: xxx
+    publisher-confirm-type: CORRELATED
+    publisher-returns: true
+    listener:
+      simple:
+        acknowledge-mode: manual
+        prefetch: 1
+
+wx:
+  login:
+    appId: xxx
+    secret: xxx
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
