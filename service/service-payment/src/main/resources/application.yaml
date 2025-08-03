@@ -1,0 +1,52 @@
+server:
+  port: 9100 # 支付服务端口
+
+# 数据源
+spring:
+  datasource:
+    url: jdbc:mysql://192.168.200.140:3306/tingshu_payment
+    username: xxx
+    password: xxx
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource  # 数据源
+
+  data:
+    redis:
+      host: 192.168.200.140
+      port: 6379
+      database: 0
+      password: xxx
+  rabbitmq:
+    host: 192.168.200.140
+    port: 5672
+    username: xxx
+    password: xxx
+    # 生产者相关
+    publisher-confirm-type: CORRELATED
+    publisher-returns: true
+    # 消费者
+    listener:
+      simple:
+        acknowledge-mode: manual
+        prefetch: 1
+  main:
+wechat:
+  v3pay:
+    #小程序微信公众平台appId
+    appid: xxx
+    #商户号
+    merchantId: xxx
+    #商户API私钥路径
+    privateKeyPath: C:\temp\apiclient_key.pem
+    #商户证书序列号
+    merchantSerialNumber: xxx
+    #商户APIV3密钥
+    apiV3key: xxx
+    #异步回调地址
+    notifyUrl: http://tingshu.free.idcfengye.com/api/payment/wxPay/notify
+
+# 开启SQL打印日志（控制台打印）
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl   # 标准输出日志
+
