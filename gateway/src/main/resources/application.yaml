@@ -1,0 +1,55 @@
+server:
+  port: 8500
+spring:
+  cloud:
+    openfeign: # 解决openfeign的时间
+      client:
+        config:
+          default:
+            connectTimeout: 30000
+            readTimeout: 30000
+            loggerLevel: basic
+    gateway:
+      discovery:
+        locator: # http://localhost:8500/service-user/api/user/userInfo  #自动路由
+          enabled: true
+          lowerCaseServiceId: true
+      globalcors: #全局跨域的配置
+        cors-configurations:
+          '[/**]':
+            allowedOriginPatterns: "*"
+            # 允许请求中携带的头信息
+            allowedHeaders: "*"
+            # 运行跨域的请求方式
+            allowedMethods: "*"
+            # 跨域检测的有效期,单位s
+            maxAge: 36000
+      routes: # 静态路由（指定的路由规则）规则
+        - id: service-album
+          uri: lb://service-album
+          predicates:
+            - Path=/*/album/**
+        - id: service-user
+          uri: lb://service-user
+          predicates:
+            - Path=/*/user/**
+        - id: service-order
+          uri: lb://service-order
+          predicates:
+            - Path=/*/order/**
+        - id: service-account
+          uri: lb://service-account
+          predicates:
+            - Path=/*/account/**
+        - id: service-dispatch
+          uri: lb://service-dispatch
+          predicates:
+            - Path=/*/dispatch/**
+        - id: service-payment
+          uri: lb://service-payment
+          predicates:
+            - Path=/*/payment/**
+        - id: service-search
+          uri: lb://service-search
+          predicates:
+            - Path=/*/search/**
