@@ -2,7 +2,7 @@ server:
   port: 7080
 #canal配置
 canal:
-  destination: tingshuTopic #Canal服务端发送数据的话题名称跟上面容器里参数destinations的一样
+  destination: tingshuTopic
   server: 192.168.200.140:11111
 spring:
   redis:

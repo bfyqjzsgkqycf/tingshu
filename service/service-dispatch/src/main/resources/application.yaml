@@ -2,10 +2,10 @@ server:
   port: 9200
 mybatis-plus:
   configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 查看日志
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 spring:
   main:
-    allow-bean-definition-overriding: true #当遇到同样名字的时候，是否允许覆盖注册
+    allow-bean-definition-overriding: true
   data:
     redis:
       host: 192.168.200.140
