@@ -136,6 +136,6 @@
 
 ---
 
-<div align="center">
+<div>
   <p>✨ 感谢您对项目的关注 ✨</p>
 </div>
