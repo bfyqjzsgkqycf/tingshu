@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>tingshu</artifactId>
+        <groupId>com.lsj.tingshu</groupId>
+        <version>1.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>service</artifactId>
+    <groupId>com.lsj.tingshu.service</groupId>
+    <version>1.0</version>
+
+    <packaging>pom</packaging>
+    <description>应用的业务层</description>
+
+    <modules>
+        <module>service-account</module>
+        <module>service-album</module>
+        <module>service-cdc</module>
+        <module>service-dispatch</module>
+        <module>service-order</module>
+        <module>service-payment</module>
+        <module>service-user</module>
+        <module>service-search</module>
+    </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.lsj.tingshu.common.util.service</groupId>
+            <artifactId>service-util</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.lsj.tingshu.client.account</groupId>
+            <artifactId>client-account</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.lsj.tingshu.client.album</groupId>
+            <artifactId>client-album</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.lsj.tingshu.client.order</groupId>
+            <artifactId>client-order</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.lsj.tingshu.client.user</groupId>
+            <artifactId>client-user</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.lsj.tingshu.client.search</groupId>
+            <artifactId>client-search</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+</project>
