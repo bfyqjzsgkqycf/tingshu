@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.lsj.tingshu.album.mapper.BaseCategoryViewMapper">
+
+    <select id="getCategoryInfoByAlbumId" resultType="com.lsj.tingshu.model.album.BaseCategoryView">
+        SELECT
+            base_category_view.category1_id,
+            base_category_view.category1_name,
+            base_category_view.category2_id,
+            base_category_view.category2_name,
+            album_info.category3_id,
+            base_category_view.category3_name
+        FROM
+            album_info
+                INNER JOIN base_category_view
+        WHERE
+            album_info.id = #{albumId}
+          AND album_info.category3_id = base_category_view.category3_id
+    </select>
+
+    <resultMap id="baseCategoryListByC1Id" type="com.lsj.tingshu.vo.category.CategoryVo">
+        <id column="category1_id" property="categoryId"></id>
+        <result column="category1_name" property="categoryName"></result>
+        <collection property="categoryChild" ofType="com.lsj.tingshu.vo.category.CategoryVo">
+            <id column="category2_id" property="categoryId"></id>
+            <result column="category2_name" property="categoryName"></result>
+            <collection property="categoryChild" ofType="com.lsj.tingshu.vo.category.CategoryVo">
+                <id column="category3_id" property="categoryId"></id>
+                <result column="category3_name" property="categoryName"></result>
+                <collection property="categoryChild" ofType="com.lsj.tingshu.vo.category.CategoryVo"></collection>
+            </collection>
+        </collection>
+    </resultMap>
+
+    <select id="getBaseCategoryListByC1Id" resultMap="baseCategoryListByC1Id">
+        SELECT
+            category1_id,
+            category1_name,
+            category2_id,
+            category2_name,
+            category3_id,
+            category3_name
+        FROM
+            base_category_view
+        WHERE
+            base_category_view.is_deleted = 0
+            AND base_category_view.category1_id = #{c1Id}
+    </select>
+</mapper>
+

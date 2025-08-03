@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.lsj.tingshu.album.mapper.BaseCategory1Mapper">
+
+    <resultMap id="baseCategoryMapResult" type="com.lsj.tingshu.vo.category.CategoryVo">
+        <id column="category1_id" property="categoryId"></id>
+        <result column="category1_name" property="categoryName"></result>
+        <collection property="categoryChild" ofType="com.lsj.tingshu.vo.category.CategoryVo">
+            <id column="category2_id" property="categoryId"></id>
+            <result column="category2_name" property="categoryName"></result>
+            <collection property="categoryChild" ofType="com.lsj.tingshu.vo.category.CategoryVo">
+                <id column="category3_id" property="categoryId"></id>
+                <result column="category3_name" property="categoryName"></result>
+                <collection property="categoryChild" ofType="com.lsj.tingshu.vo.category.CategoryVo"></collection>
+            </collection>
+        </collection>
+    </resultMap>
+
+    <select id="getCategoryList" resultMap="baseCategoryMapResult">
+        SELECT
+            category1_id,
+            category1_name,
+            category2_id,
+            category2_name,
+            category3_id,
+            category3_name
+        FROM `base_category_view` WHERE base_category_view.is_deleted = 0
+    </select>
+</mapper>
+

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lsj.tingshu.album.mapper.AlbumInfoMapper">
+    <select id="findUserAlbumPage" resultType="com.lsj.tingshu.vo.album.AlbumListVo">
+        SELECT
+        ai.id AS albumId,
+        ai.album_title,
+        ai.cover_url,
+        ai.include_track_count,
+        ai.is_finished,
+        ai.status,
+        MAX(IF(ast.stat_type = '0401',ast.stat_num,0)) AS playStatNum,
+        MAX(IF(ast.stat_type = '0402',ast.stat_num,0)) AS subscribeStatNum,
+        MAX(IF(ast.stat_type = '0403',ast.stat_num,0)) AS buyStatNum,
+        MAX(IF(ast.stat_type = '0404',ast.stat_num,0)) AS commentStatNum
+        FROM album_info AS ai
+        INNER JOIN album_stat AS ast
+        ON ai.id = ast.album_id
+        <where>
+            <if test = "vo.albumTitle != null and vo.albumTitle != ''">
+                AND ai.album_title = #{vo.albumTitle}
+            </if>
+            <if test = "vo.status != null and vo.status != ''">
+                AND ai.status = #{vo.status}
+            </if>
+            AND ai.user_id = #{vo.userId}
+            AND ai.is_deleted = 0
+        </where>
+        GROUP BY ai.id
+        ORDER BY ai.create_time DESC
+    </select>
+    <select id="getAlbumStatByAlbumId" resultType="com.lsj.tingshu.vo.album.AlbumStatVo">
+        SELECT
+            MAX(
+                    IF
+                    ( album_stat.stat_type = '0401', album_stat.stat_num, 0 )) AS playStatNum,
+            MAX(
+                    IF
+                    ( album_stat.stat_type = '0402', album_stat.stat_num, 0 )) AS subscribeStatNum,
+            MAX(
+                    IF
+                    ( album_stat.stat_type = '0403', album_stat.stat_num, 0 )) AS buyStatNum,
+            MAX(
+                    IF
+                    ( album_stat.stat_type = '0404', album_stat.stat_num, 0 )) AS commentStatNum
+        FROM
+            album_stat
+        WHERE
+            album_stat.album_id = #{albumId}
+        GROUP BY
+            album_stat.album_id
+    </select>
+</mapper>
+

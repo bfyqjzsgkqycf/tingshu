@@ -1,0 +1,52 @@
+server:
+  port: 8800
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 30MB
+
+  datasource:
+    url: jdbc:mysql://192.168.200.140:3306/tingshu_album
+    username: xxx
+    password: xxx
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+
+  data:
+    redis:
+      host: 192.168.200.140
+      port: 6379
+      password: xxx
+      database: 0
+
+  rabbitmq:
+    host: 192.168.200.140
+    port: 5672
+    username: xxx
+    password: xxx
+    publisher-confirm-type: CORRELATED
+    publisher-returns: true
+    listener:
+      simple:
+        acknowledge-mode: manual
+        prefetch: 1
+
+minio:
+  endpoint-url: http://192.168.200.140:9000
+  access-key: xxx
+  secre-key: xxx
+  bucket-name: lcz
+  enable: true
+
+vod:
+  appId: 1316926299
+  secretId: xxx
+  secretKey: xxx
+  region: ap-guangzhou
+  tempPath: C:/Users/jiaqi/temp
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl   # 标准输出日志

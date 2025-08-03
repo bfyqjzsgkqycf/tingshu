@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.lsj.tingshu.album.mapper.TrackInfoMapper">
+
+    <select id="findUserTrackPage" resultType="com.lsj.tingshu.vo.album.TrackListVo">
+        SELECT
+            ti.album_id,
+            ti.id AS trackId,
+            ti.track_title,
+            ti.cover_url,
+            ti.media_duration,
+            ti.status,
+            MAX(IF(ts.stat_type = '0701',ts.stat_num,0)) AS playStatNum,
+            MAX(IF(ts.stat_type = '0702',ts.stat_num,0)) AS collectStatNum,
+            MAX(IF(ts.stat_type = '0703',ts.stat_num,0)) AS praiseStatNum,
+            MAX(IF(ts.stat_type = '0704',ts.stat_num,0)) AS commentStatNum
+        FROM track_info AS ti
+                 INNER JOIN track_stat AS ts
+                            ON ti.id = ts.track_id
+        <where>
+            <if test = "vo.trackTitle != null and vo.trackTitle != ''">
+                AND ti.track_title = #{vo.trackTitle}
+            </if>
+            <if test = "vo.status != null and vo.status != ''">
+                AND ti.status = #{vo.status}
+            </if>
+            AND ti.user_id = #{vo.userId} AND ti.is_deleted = 0
+        </where>
+        GROUP BY ti.id
+        ORDER BY ti.create_time DESC
+
+    </select>
+    <select id="findAlbumTrackPage" resultType="com.lsj.tingshu.vo.album.AlbumTrackListVo">
+        SELECT
+            track_info.id AS trackId,
+            track_info.track_title,
+            track_info.media_duration,
+            track_info.order_num,
+            track_info.create_time,
+            MAX(
+                    IF
+                    ( track_stat.stat_type = '0701', track_stat.stat_num, 0 )) AS playStatNum,
+            MAX(
+                    IF
+                    ( track_stat.stat_type = '0704', track_stat.stat_num, 0 )) AS commentStatNum
+        FROM
+            `track_info`
+                INNER JOIN track_stat ON track_info.id = track_stat.track_id
+        WHERE
+            track_info.album_id = #{albumId}
+            AND track_info.is_deleted = 0
+        GROUP BY
+            track_stat.track_id
+    </select>
+</mapper>
+

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.lsj.tingshu.album.mapper.BaseCategory3Mapper">
+    <select id="findTopBaseCategory3" resultType="com.lsj.tingshu.model.album.BaseCategory3">
+        SELECT
+            base_category3.id,
+            base_category3.name,
+            base_category3.category2_id,
+            base_category3.order_num,
+            base_category3.is_top
+        FROM
+            base_category3
+                INNER JOIN base_category_view ON base_category_view.category3_id = base_category3.id
+        WHERE
+            base_category_view.category1_id = #{c1Id}
+            LIMIT 7
+    </select>
+</mapper>
+
